@@ -1,0 +1,14 @@
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\bin\Debug\net10.0\PR_Ball.exe
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\bin\Debug\net10.0\PR_Ball.deps.json
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\bin\Debug\net10.0\PR_Ball.runtimeconfig.json
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\bin\Debug\net10.0\PR_Ball.dll
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\bin\Debug\net10.0\PR_Ball.pdb
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.AssemblyInfoInputs.cache
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.AssemblyInfo.cs
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.csproj.CoreCompileInputs.cache
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.dll
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\refint\PR_Ball.dll
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.pdb
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\PR_Ball.genruntimeconfig.cache
+C:\Users\wdi\source\repos\PR_Ball\PR_Ball\obj\Debug\net10.0\ref\PR_Ball.dll

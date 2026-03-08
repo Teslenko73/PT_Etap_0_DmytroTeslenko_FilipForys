@@ -1,0 +1,5 @@
+<Window x:Class="Presentation.Window" ...>
+    <Canvas Name="MyCanvas" Background="White">
+        <Ellipse Name="BallUI" Fill="Blue" Width="30" Hight="30" />
+    </Canvas>
+</Window>
