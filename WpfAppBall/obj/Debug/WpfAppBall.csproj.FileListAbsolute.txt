@@ -1,0 +1,15 @@
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\bin\Debug\WpfAppBall.exe.config
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\bin\Debug\WpfAppBall.exe
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\bin\Debug\WpfAppBall.pdb
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.csproj.AssemblyReference.cache
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\MainWindow.g.cs
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\App.g.cs
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall_MarkupCompile.cache
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall_MarkupCompile.lref
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\MainWindow.baml
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.g.resources
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.Properties.Resources.resources
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.csproj.GenerateResource.cache
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.csproj.CoreCompileInputs.cache
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.exe
+C:\Users\wdi\source\repos\WpfAppBall\WpfAppBall\obj\Debug\WpfAppBall.pdb
