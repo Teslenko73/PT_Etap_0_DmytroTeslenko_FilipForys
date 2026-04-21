@@ -98,6 +98,9 @@
     <Compile Include="BallLogic.cs" />
     <Compile Include="BallRepository.cs" />
     <Compile Include="Testy\Test.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\viemodel.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="WpfAppBall.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
