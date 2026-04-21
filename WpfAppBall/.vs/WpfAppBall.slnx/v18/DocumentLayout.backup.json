@@ -3,46 +3,47 @@
   "WorkspaceRootPath": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\testy\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:testy\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\testy\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:testy\\test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\ball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:ball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\wpfappball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:wpfappball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\ballrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:ballrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\balllogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\balllogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:balllogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\ball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:ball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\ballrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:ballrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|WpfAppBall||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\filip\\source\\repos\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,7 +53,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -64,104 +65,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Test.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Testy\\Test.cs",
-              "RelativeDocumentMoniker": "Testy\\Test.cs",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Testy\\Test.cs",
-              "RelativeToolTip": "Testy\\Test.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T07:33:40.991Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BallRepository.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\BallRepository.cs",
-              "RelativeDocumentMoniker": "BallRepository.cs",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\BallRepository.cs",
-              "RelativeToolTip": "BallRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T07:28:11.27Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-10T07:27:01.82Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.config",
-              "RelativeDocumentMoniker": "App.config",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.config",
-              "RelativeToolTip": "App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-03-10T07:26:44.15Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "WpfAppBall",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.csproj",
-              "RelativeDocumentMoniker": "WpfAppBall.csproj",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.csproj",
-              "RelativeToolTip": "WpfAppBall.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-03-10T07:26:38.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwCQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T07:25:53.05Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "WpfAppBall.cs",
               "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.cs",
               "RelativeDocumentMoniker": "WpfAppBall.cs",
               "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.cs",
               "RelativeToolTip": "WpfAppBall.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-10T07:25:27.061Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Ball.cs",
-              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Ball.cs",
-              "RelativeDocumentMoniker": "Ball.cs",
-              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Ball.cs",
-              "RelativeToolTip": "Ball.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T07:24:45.105Z",
               "EditorCaption": ""
             },
             {
@@ -172,22 +84,116 @@
               "RelativeDocumentMoniker": "BallLogic.cs",
               "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\BallLogic.cs",
               "RelativeToolTip": "BallLogic.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAYwCsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-10T07:23:38.951Z",
+              "WhenOpened": "2026-03-10T07:23:38.951Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T07:25:53.05Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Ball.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Ball.cs",
+              "RelativeDocumentMoniker": "Ball.cs",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Ball.cs",
+              "RelativeToolTip": "Ball.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T07:24:45.105Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-10T07:24:54.215Z",
+              "WhenOpened": "2026-03-10T07:24:54.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BallRepository.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\BallRepository.cs",
+              "RelativeDocumentMoniker": "BallRepository.cs",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\BallRepository.cs",
+              "RelativeToolTip": "BallRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T07:28:11.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Test.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Testy\\Test.cs",
+              "RelativeDocumentMoniker": "Testy\\Test.cs",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Testy\\Test.cs",
+              "RelativeToolTip": "Testy\\Test.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T07:33:40.991Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T11:31:24.82Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "WpfAppBall",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.csproj",
+              "RelativeDocumentMoniker": "WpfAppBall.csproj",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\WpfAppBall.csproj",
+              "RelativeToolTip": "WpfAppBall.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-10T07:26:38.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.config",
+              "RelativeDocumentMoniker": "App.config",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.config",
+              "RelativeToolTip": "App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-03-10T07:26:44.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Users\\filip\\source\\repos\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-10T07:27:01.82Z"
             }
           ]
         }
