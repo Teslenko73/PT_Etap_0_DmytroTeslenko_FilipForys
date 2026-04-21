@@ -7,13 +7,34 @@
         mc:Ignorable="d"
         Title="Ball Animation" Height="450" Width="800">
 
-    <Grid>
-        <Canvas Name="GameCanvas" Background="White">
-            <Ellipse Name="BallShape"
-                     Width="30"
-                     Height="30"
-                     Fill="Red"/>
-        </Canvas>
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10" Background="#F0F0F0">
+            <TextBlock Text="Liczba kul:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Text="{Binding BallCount, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="5"/>
+            <Button Content="Start" Command="{Binding StartCommand}" Margin="5" Padding="10,2"/>
+        </StackPanel>
 
+        <ItemsControl ItemsSource="{Binding Balls}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="White" IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="{Binding Radius}" 
+                             Height="{Binding Radius}" 
+                             Fill="Red"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
 </Window>
