@@ -1,36 +1,36 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
+using WpfAppBall.ViewModel;
 
 namespace WpfAppBall
 {
+    /// <summary>
+    /// Code-behind MainWindow.
+    ///
+    /// ZASADA MVVM: Ten plik zawiera WYŁĄCZNIE:
+    ///   1) Automatycznie generowany przez VS kod (InitializeComponent)
+    ///   2) Obsługę SizeChanged Canvas - jedyną operację niemożliwą przez DataBinding,
+    ///      bo Canvas.ActualWidth/Height nie są dostępne w designerze przy starcie.
+    ///
+    /// Cała logika biznesowa i sterowanie jest w MainViewModel.
+    /// </summary>
     public partial class MainWindow : Window
     {
-        private BallLogic _logic;
-        private DispatcherTimer _timer;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            BallRepository data = new BallRepository();
-            _logic = new BallLogic(data.CreateBall());
-
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(20);
-            _timer.Tick += Update;
-            _timer.Start();
         }
 
-        private void Update(object sender, EventArgs e)
+        /// <summary>
+        /// Przekazuje aktualny rozmiar planszy do ViewModelu gdy Canvas zmienia rozmiar.
+        /// To jedyne uzasadnione użycie code-behind poza InitializeComponent.
+        /// </summary>
+        private void GameCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _logic.UpdatePosition(GameCanvas.ActualWidth, GameCanvas.ActualHeight);
-
-            Ball b = _logic.GetBall();
-
-            Canvas.SetLeft(BallShape, b.X);
-            Canvas.SetTop(BallShape, b.Y);
+            if (DataContext is MainViewModel vm && sender is Canvas canvas)
+            {
+                vm.UpdateBoardSize(canvas.ActualWidth, canvas.ActualHeight);
+            }
         }
     }
-}   
+}

@@ -3,17 +3,137 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfAppBall"
+        xmlns:vm="clr-namespace:WpfAppBall.ViewModel"
         mc:Ignorable="d"
-        Title="Ball Animation" Height="450" Width="800">
+        Title="Stół Bilardowy"
+        Height="600" Width="900"
+        MinHeight="450" MinWidth="700">
+
+    <!-- DataContext ustawiony na MainViewModel przez XAML - wymagane MVVM -->
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
 
     <Grid>
-        <Canvas Name="GameCanvas" Background="White">
-            <Ellipse Name="BallShape"
-                     Width="30"
-                     Height="30"
-                     Fill="Red"/>
-        </Canvas>
-    </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!-- Panel kontrolny -->
+        <Border Grid.Row="0" Background="#2C2C2C" Padding="12,8">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                <TextBlock Text="Liczba kul:"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+
+                <TextBox Width="55" Height="28"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center"
+                         Text="{Binding BallCount, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsNotRunning}"/>
+
+                <Slider Width="120"
+                        Minimum="1" Maximum="50"
+                        Value="{Binding BallCount}"
+                        VerticalAlignment="Center"
+                        Margin="8,0"
+                        IsEnabled="{Binding IsNotRunning}"/>
+
+                <TextBlock Text="{Binding BallCount, StringFormat='({0})'}"
+                           Foreground="LightGray"
+                           VerticalAlignment="Center"
+                           Margin="0,0,16,0"/>
+
+                <Button Content="START"
+                        Command="{Binding StartCommand}"
+                        Width="80" Height="28"
+                        Margin="0,0,8,0"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Background="#27AE60"
+                        BorderThickness="0"/>
+
+                <Button Content="STOP"
+                        Command="{Binding StopCommand}"
+                        Width="80" Height="28"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Background="#E74C3C"
+                        BorderThickness="0"/>
+
+                <Ellipse Width="12" Height="12"
+                         Margin="16,0,4,0"
+                         VerticalAlignment="Center">
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Setter Property="Fill" Value="#444"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                    <Setter Property="Fill" Value="#2ECC71"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
+                </Ellipse>
+
+                <TextBlock VerticalAlignment="Center" FontSize="11">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text"       Value="Zatrzymano"/>
+                            <Setter Property="Foreground" Value="#888"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                    <Setter Property="Text"       Value="Symulacja aktywna"/>
+                                    <Setter Property="Foreground" Value="#2ECC71"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Plansza bilardowa -->
+        <!-- SizeChanged jest WYMAGANE aby Canvas przekazał swój rozmiar do ViewModelu -->
+        <Border Grid.Row="1"
+                Background="#145A1F"
+                BorderBrush="#0A3212"
+                BorderThickness="8"
+                Margin="4">
+
+            <Canvas Name="GameCanvas"
+                    Background="#1A6B26"
+                    SizeChanged="GameCanvas_SizeChanged">
+
+                <ItemsControl ItemsSource="{Binding Balls}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding CanvasLeft}"/>
+                            <Setter Property="Canvas.Top"  Value="{Binding CanvasTop}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Bindujemy Diameter (nie Radius!) -->
+                            <Ellipse Width="{Binding Diameter}"
+                                     Height="{Binding Diameter}"
+                                     Fill="Red"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Canvas>
+        </Border>
+    </Grid>
 </Window>
