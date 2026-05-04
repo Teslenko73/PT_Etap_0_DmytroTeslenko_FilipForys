@@ -3,10 +3,7 @@ using System.Collections.Generic;
 
 namespace WpfAppBall.Data.DataImplementation
 {
-    /// <summary>
-    /// Konkretna implementacja DataAbstractApi.
-    /// Repozytorium kul - zarządza kolekcją i powiadamia subskrybentów.
-    /// </summary>
+
     internal class DataApi : DataAbstractApi
     {
         private readonly List<BallData> _balls = new List<BallData>();

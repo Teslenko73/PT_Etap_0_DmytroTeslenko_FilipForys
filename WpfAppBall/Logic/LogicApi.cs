@@ -6,10 +6,7 @@ using WpfAppBall.Data;
 
 namespace WpfAppBall.Logic.LogicImplementation
 {
-    /// <summary>
-    /// Konkretna implementacja warstwy Logika.
-    /// Zarządza timerem symulacji i tłumaczy dane z warstwy Dane na DTO.
-    /// </summary>
+
     internal class LogicApi : LogicAbstractApi
     {
         private readonly DataAbstractApi _data;
@@ -19,8 +16,8 @@ namespace WpfAppBall.Logic.LogicImplementation
         private double _boardWidth;
         private double _boardHeight;
 
-        // 16 ms ≈ 60 FPS - inżynierska miara płynności animacji
-        private const int TickMs = 16;
+        // czestotliwosc odswiezana
+        private const int TickMs = 45;
 
         public LogicApi(DataAbstractApi data)
         {
@@ -30,7 +27,6 @@ namespace WpfAppBall.Logic.LogicImplementation
             _data.Subscribe(OnBallMoved);
         }
 
-        // ─── Operacje interaktywne ────────────────────────────────────────────
 
         public override void CreateBalls(int count, double boardWidth, double boardHeight)
         {
@@ -62,7 +58,7 @@ namespace WpfAppBall.Logic.LogicImplementation
             _data.ClearBalls();
         }
 
-        // ─── Operacje reaktywne ───────────────────────────────────────────────
+        //reaktywne
 
         public override void Subscribe(Action<IEnumerable<IBallDto>> onUpdate)
         {
@@ -74,7 +70,6 @@ namespace WpfAppBall.Logic.LogicImplementation
             return _data.GetAllBalls().Select(b => (IBallDto)new BallDto(b)).ToList();
         }
 
-        // ─── Prywatne ─────────────────────────────────────────────────────────
 
         private void Tick()
         {
@@ -97,7 +92,6 @@ namespace WpfAppBall.Logic.LogicImplementation
         }
     }
 
-    /// <summary>DTO - przenosi dane kuli z Logiki do Prezentacji.</summary>
     internal class BallDto : IBallDto
     {
         public int Id { get; }

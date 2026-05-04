@@ -2,11 +2,7 @@
 
 namespace WpfAppBall.Data.DataImplementation
 {
-    /// <summary>
-    /// Konkretna implementacja danych kuli.
-    /// Przechowuje stan i realizuje ruch (odbicia od ścian).
-    /// Ukryta wewnątrz warstwy Dane - warstwa Logika widzi tylko IBallData.
-    /// </summary>
+
     internal class BallData : IBallData
     {
         // Licznik do unikalnych ID
@@ -22,28 +18,22 @@ namespace WpfAppBall.Data.DataImplementation
         public double VelocityX { get; private set; }
         public double VelocityY { get; private set; }
 
-        /// <summary>
-        /// Tworzy kulę z losowym położeniem startowym i losową prędkością.
-        /// Położenie startowe gwarantuje, że kula jest w całości wewnątrz planszy.
-        /// </summary>
+
         public BallData(double boardWidth, double boardHeight)
         {
             Id = System.Threading.Interlocked.Increment(ref _idCounter);
 
-            // Losowe położenie - środek kuli, z marginesem równym promieniowi
+
             X = _rng.NextDouble() * (boardWidth - 2 * Radius) + Radius;
             Y = _rng.NextDouble() * (boardHeight - 2 * Radius) + Radius;
 
-            // Losowa prędkość od 2 do 6 px/krok, losowy kierunek
+
             double speed = _rng.NextDouble() * 4.0 + 2.0;
             double angle = _rng.NextDouble() * 2 * Math.PI;
             VelocityX = speed * Math.Cos(angle);
             VelocityY = speed * Math.Sin(angle);
         }
 
-        /// <summary>
-        /// Konstruktor do testów jednostkowych - podajemy konkretne wartości.
-        /// </summary>
         internal BallData(int id, double x, double y, double vx, double vy, double radius = 15.0)
         {
             Id = id;
@@ -52,10 +42,7 @@ namespace WpfAppBall.Data.DataImplementation
             Radius = radius;
         }
 
-        /// <summary>
-        /// Aktualizuje pozycję kuli. Odbija od ścian z uwzględnieniem promienia.
-        /// Thread-safe dzięki lock (potrzebne w następnych etapach z wielowątkowością).
-        /// </summary>
+
         public void Move(double boardWidth, double boardHeight)
         {
             lock (_syncLock)

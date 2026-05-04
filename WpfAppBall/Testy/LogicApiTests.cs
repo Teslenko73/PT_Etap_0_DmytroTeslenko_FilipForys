@@ -8,15 +8,9 @@ using WpfAppBall.Logic;
 
 namespace WpfAppBall.Testy
 {
-    /// <summary>
-    /// Testy jednostkowe WYŁĄCZNIE warstwy Logika.
-    /// Zamiast zewnętrznych mocków (zabronionych) używamy własnej implementacji
-    /// DataAbstractApi - tzw. "test double" lub "fake".
-    /// Brak zależności od warstwy Prezentacja.
-    /// </summary>
+
     public class LogicApiTests
     {
-        // ─── Własna implementacja DataApi do testów (bez zewnętrznych mocków) ─────
 
         private class FakeDataApi : DataAbstractApi
         {
@@ -58,7 +52,6 @@ namespace WpfAppBall.Testy
             public void Move() { X += VelocityX; Y += VelocityY; }
         }
 
-        // ─── Testy ────────────────────────────────────────────────────────────────
 
         [Fact]
         public void CreateBalls_ShouldCreateCorrectCount()
@@ -145,7 +138,6 @@ namespace WpfAppBall.Testy
             logic.CreateBalls(1, 600, 400);
             logic.StartSimulation(600, 400);
 
-            // Czekamy na kilka tyknięć timera (16 ms * kilka)
             Thread.Sleep(200);
             logic.StopSimulation();
 

@@ -3,10 +3,7 @@ using System.Windows.Input;
 
 namespace WpfAppBall.ViewModel
 {
-    /// <summary>
-    /// Implementacja ICommand (wzorzec MVVM - RelayCommand).
-    /// Umożliwia bindowanie przycisków do metod ViewModelu bez code-behind.
-    /// </summary>
+
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
@@ -18,7 +15,6 @@ namespace WpfAppBall.ViewModel
             _canExecute = canExecute;
         }
 
-        // Przeciążenie dla wygody (Action bez parametru)
         public RelayCommand(Action execute, Func<bool> canExecute = null)
             : this(_ => execute(), canExecute == null ? (Func<object, bool>)null : _ => canExecute())
         { }

@@ -3,11 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace WpfAppBall.ViewModel
 {
-    /// <summary>
-    /// Model warstwy Prezentacja (MVVM).
-    /// Przechowuje dane jednej kuli dla GUI.
-    /// Odpowiada za skalowanie wartości z warstwy Logika do rozmiaru ekranu.
-    /// </summary>
+
     public class BallViewModel : INotifyPropertyChanged
     {
         private double _x;
@@ -26,6 +22,7 @@ namespace WpfAppBall.ViewModel
             get => _x;
             set
             {
+                if(_x == value) return;
                 _x = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanvasLeft));
@@ -37,6 +34,7 @@ namespace WpfAppBall.ViewModel
             get => _y;
             set
             {
+                if(_y == value) return;
                 _y = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanvasTop));
@@ -48,6 +46,7 @@ namespace WpfAppBall.ViewModel
             get => _diameter;
             set
             {
+                if (_diameter == value) return; // NIE powiadamiaj, jeśli wartość jest taka sama
                 _diameter = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanvasLeft));
@@ -55,16 +54,10 @@ namespace WpfAppBall.ViewModel
             }
         }
 
-        /// <summary>
-        /// Pozycja lewego górnego rogu elipsy na Canvas (Canvas.Left).
-        /// X to środek kuli, więc odejmujemy połowę średnicy.
-        /// </summary>
+
         public double CanvasLeft => X - Diameter / 2.0;
 
-        /// <summary>
-        /// Pozycja lewego górnego rogu elipsy na Canvas (Canvas.Top).
-        /// Y to środek kuli, więc odejmujemy połowę średnicy.
-        /// </summary>
+ 
         public double CanvasTop => Y - Diameter / 2.0;
 
         public event PropertyChangedEventHandler PropertyChanged;

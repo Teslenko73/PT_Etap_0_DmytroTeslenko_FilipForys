@@ -9,7 +9,6 @@
         Height="600" Width="900"
         MinHeight="450" MinWidth="700">
 
-    <!-- DataContext ustawiony na MainViewModel przez XAML - wymagane MVVM -->
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
@@ -35,12 +34,7 @@
                          Text="{Binding BallCount, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding IsNotRunning}"/>
 
-                <Slider Width="120"
-                        Minimum="1" Maximum="50"
-                        Value="{Binding BallCount}"
-                        VerticalAlignment="Center"
-                        Margin="8,0"
-                        IsEnabled="{Binding IsNotRunning}"/>
+ 
 
                 <TextBlock Text="{Binding BallCount, StringFormat='({0})'}"
                            Foreground="LightGray"
@@ -64,41 +58,12 @@
                         Background="#E74C3C"
                         BorderThickness="0"/>
 
-                <Ellipse Width="12" Height="12"
-                         Margin="16,0,4,0"
-                         VerticalAlignment="Center">
-                    <Ellipse.Style>
-                        <Style TargetType="Ellipse">
-                            <Setter Property="Fill" Value="#444"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                    <Setter Property="Fill" Value="#2ECC71"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Ellipse.Style>
-                </Ellipse>
+               
 
-                <TextBlock VerticalAlignment="Center" FontSize="11">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text"       Value="Zatrzymano"/>
-                            <Setter Property="Foreground" Value="#888"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                    <Setter Property="Text"       Value="Symulacja aktywna"/>
-                                    <Setter Property="Foreground" Value="#2ECC71"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
 
             </StackPanel>
         </Border>
 
-        <!-- Plansza bilardowa -->
-        <!-- SizeChanged jest WYMAGANE aby Canvas przekazał swój rozmiar do ViewModelu -->
         <Border Grid.Row="1"
                 Background="#145A1F"
                 BorderBrush="#0A3212"
@@ -125,7 +90,6 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <!-- Bindujemy Diameter (nie Radius!) -->
                             <Ellipse Width="{Binding Diameter}"
                                      Height="{Binding Diameter}"
                                      Fill="Red"/>

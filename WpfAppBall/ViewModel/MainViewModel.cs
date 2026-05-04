@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -38,7 +39,7 @@ namespace WpfAppBall.ViewModel
             set
             {
                 if (value < 1) value = 1;
-                if (value > 50) value = 50;
+                if (value > 500) value = 500;
                 _ballCount = value;
                 OnPropertyChanged();
             }
@@ -69,25 +70,22 @@ namespace WpfAppBall.ViewModel
             set { _boardHeight = value; OnPropertyChanged(); }
         }
 
-        // ─── Komendy (ICommand) ───────────────────────────────────────────────
+
 
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
 
-        // ─── Konstruktory (Dependency Injection) ──────────────────────────────
 
-        /// <summary>Konstruktor domyślny - tworzony przez XAML DataContext.</summary>
+
+
         public MainViewModel() : this(LogicAbstractApi.CreateApi()) { }
 
-        /// <summary>
-        /// Konstruktor z wstrzyknięciem zależności - używany w testach integracyjnych
-        /// i umożliwia podanie własnej implementacji logiki.
-        /// </summary>
+
         public MainViewModel(LogicAbstractApi logic)
         {
             _logic = logic ?? throw new ArgumentNullException(nameof(logic));
 
-            // Reaktywna subskrypcja - Logika wywołuje nas gdy kule się poruszą
+
             _logic.Subscribe(OnBallsUpdated);
 
             StartCommand = new RelayCommand(
@@ -137,33 +135,25 @@ namespace WpfAppBall.ViewModel
         /// Model (BallViewModel) skaluje współrzędne do rozmiaru ekranu.
         /// Wywoływana z wątku timera → marshal na wątek UI przez Dispatcher.
         /// </summary>
+        private readonly Dictionary<int, BallViewModel> _ballMap = new Dictionary<int, BallViewModel>();
+
         private void OnBallsUpdated(System.Collections.Generic.IEnumerable<IBallDto> dtos)
         {
             Application.Current?.Dispatcher.Invoke(() =>
             {
-                var dtoList = dtos.ToList();
-
-                foreach (var dto in dtoList)
+                foreach (var dto in dtos)
                 {
-                    var bvm = Balls.FirstOrDefault(b => b.Id == dto.Id);
-                    if (bvm == null)
+                    if (!_ballMap.TryGetValue(dto.Id, out var bvm))
                     {
                         bvm = new BallViewModel { Id = dto.Id };
+                        _ballMap[dto.Id] = bvm;
                         Balls.Add(bvm);
                     }
 
-                    // Skalowanie: warstwa Model przelicza dane z Logiki
-                    // na współrzędne ekranowe (w tym etapie skala 1:1,
-                    // ale tu jest miejsce na skalowanie przy zmianie okna)
                     bvm.X = dto.X;
                     bvm.Y = dto.Y;
                     bvm.Diameter = dto.Radius * 2.0;
                 }
-
-                // Usuń kule których nie ma już na liście
-                var activeIds = dtoList.Select(d => d.Id).ToHashSet();
-                foreach (var old in Balls.Where(b => !activeIds.Contains(b.Id)).ToList())
-                    Balls.Remove(old);
             });
         }
     }
