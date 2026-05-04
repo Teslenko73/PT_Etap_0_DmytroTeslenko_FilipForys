@@ -8,14 +8,6 @@ using WpfAppBall.Logic;
 
 namespace WpfAppBall.ViewModel
 {
-    /// <summary>
-    /// Główny ViewModel aplikacji (wzorzec MVVM).
-    /// Pośredniczy między widokiem (MainWindow.xaml) a warstwą Logika.
-    /// Obsługuje:
-    ///   - komendy użytkownika (ICommand: Start, Stop)
-    ///   - reaktywne aktualizacje pozycji kul (Subscribe → ObservableCollection)
-    ///   - DataBinding z widokiem przez właściwości i ObservableCollection
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         private readonly LogicAbstractApi _logic;
@@ -25,13 +17,11 @@ namespace WpfAppBall.ViewModel
         private double _boardWidth = 600;
         private double _boardHeight = 400;
 
-        // ─── Kolekcja kul dla DataBindingu (INotifyCollectionChanged wbudowane) ──
 
-        /// <summary>Kolekcja modeli kul bindowana do ItemsControl w XAML.</summary>
         public ObservableCollection<BallViewModel> Balls { get; }
             = new ObservableCollection<BallViewModel>();
 
-        // ─── Właściwości bindowane ────────────────────────────────────────────
+
 
         public int BallCount
         {
@@ -99,12 +89,9 @@ namespace WpfAppBall.ViewModel
             );
         }
 
-        // ─── Metody publiczne ─────────────────────────────────────────────────
 
-        /// <summary>
-        /// Wywoływana z code-behind gdy Canvas zmienia rozmiar.
-        /// Przekazuje aktualny rozmiar planszy do warstwy Logika.
-        /// </summary>
+
+
         public void UpdateBoardSize(double width, double height)
         {
             BoardWidth = width;
@@ -114,7 +101,6 @@ namespace WpfAppBall.ViewModel
                 _logic.StartSimulation(BoardWidth, BoardHeight);
         }
 
-        // ─── Prywatne ─────────────────────────────────────────────────────────
 
         private void StartSimulation()
         {
@@ -130,11 +116,7 @@ namespace WpfAppBall.ViewModel
             Application.Current?.Dispatcher.Invoke(Balls.Clear);
         }
 
-        /// <summary>
-        /// Reaktywna odpowiedź na zmianę pozycji kul.
-        /// Model (BallViewModel) skaluje współrzędne do rozmiaru ekranu.
-        /// Wywoływana z wątku timera → marshal na wątek UI przez Dispatcher.
-        /// </summary>
+
         private readonly Dictionary<int, BallViewModel> _ballMap = new Dictionary<int, BallViewModel>();
 
         private void OnBallsUpdated(System.Collections.Generic.IEnumerable<IBallDto> dtos)
