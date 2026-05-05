@@ -36,10 +36,7 @@
 
  
 
-                <TextBlock Text="{Binding BallCount, StringFormat='({0})'}"
-                           Foreground="LightGray"
-                           VerticalAlignment="Center"
-                           Margin="0,0,16,0"/>
+                
 
                 <Button Content="START"
                         Command="{Binding StartCommand}"
