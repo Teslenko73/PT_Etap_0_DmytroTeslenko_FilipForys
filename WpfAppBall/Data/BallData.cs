@@ -23,7 +23,7 @@ namespace WpfAppBall.Data.DataImplementation
         public double VelocityX { get { lock (_syncLock) return _vx; } }
         public double VelocityY { get { lock (_syncLock) return _vy; } }
 
-        // Konstruktor produkcyjny
+       
         public BallData(double boardWidth, double boardHeight, Action<IBallData> onMoved)
         {
             Id = Interlocked.Increment(ref _idCounter);
@@ -42,7 +42,7 @@ namespace WpfAppBall.Data.DataImplementation
             }
         }
 
-        // Konstruktor testowalny (bez wątku)
+        // Konstruktor test(bez wątku)
         internal BallData(int id, double x, double y, double vx, double vy,
                           double radius = 15.0, double mass = 0)
         {

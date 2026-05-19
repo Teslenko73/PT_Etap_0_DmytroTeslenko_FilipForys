@@ -55,15 +55,15 @@ namespace WpfAppBall.Logic.LogicImplementation
             return _data.GetAllBalls().Select(b => (IBallDto)new BallDto(b)).ToList();
         }
 
-        // ── Reaktywne – wywoływane przez wątek kuli ──────────────────────────
+        // ─
         private void OnBallMoved(IBallData movedBall)
         {
             lock (_collisionLock)
             {
                 ResolveCollisions(movedBall);
             }
-
-            // Pobieramy bezpieczną kopię dzięki poprawce w DataApi
+            //popprawienie optymalizacji cache 
+           
             var dtos = _data.GetAllBalls()
                             .Select(b => (IBallDto)new BallDto(b))
                             .ToList();
@@ -71,7 +71,7 @@ namespace WpfAppBall.Logic.LogicImplementation
             _subscriber?.Invoke(dtos);
         }
 
-        // 
+        // poprawnie foreach bo nie dziala
         private void ResolveCollisions(IBallData a)
         {
             var balls = _data.GetAllBalls();
@@ -86,7 +86,7 @@ namespace WpfAppBall.Logic.LogicImplementation
 
                 if (dist < minDist && dist > 1e-9)
                 {
-                    // Wektor normalny zderzenia
+                    // Wektor zderzenia
                     double nx = dx / dist;
                     double ny = dy / dist;
 
