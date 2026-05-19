@@ -16,7 +16,7 @@ namespace WpfAppBall.Data.DataImplementation
 
         public int Id { get; }
         public double Radius { get; }
-        public double Mass { get; }          // masa = π·r²  (proporcjonalna do powierzchni)
+        public double Mass { get; }        
 
         public double X { get { lock (_syncLock) return _x; } }
         public double Y { get { lock (_syncLock) return _y; } }
@@ -52,7 +52,7 @@ namespace WpfAppBall.Data.DataImplementation
             Mass = mass > 0 ? mass : Math.PI * radius * radius;
         }
 
-        // ── IBallData ────────────────────────────────────────────────────────
+        // ── IBallData
         public void Move(double boardWidth, double boardHeight)
         {
             lock (_syncLock)
@@ -78,7 +78,7 @@ namespace WpfAppBall.Data.DataImplementation
 
         public void NotifyMoved() => _onMoved?.Invoke(this);
 
-        // ── Własny wątek ─────────────────────────────────────────────────────
+        // watek
         internal void StartThread(double boardWidth, double boardHeight)
         {
             _cts = new CancellationTokenSource();

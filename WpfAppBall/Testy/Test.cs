@@ -1,50 +1,43 @@
-﻿//using Xunit;
-//using WpfAppBall.Data;
+﻿using System;
+using Xunit;
+using WpfAppBall.Data.DataImplementation; // Dopasuj do swojego namespace
 
-//namespace WpfAppBall.Testy
-//{
-//    public class DataApiTests
-//    {
-//        [Fact]
-//        public void Ball_ShouldStayWithinBoundsAfterMove()
-//        {
-//            // Arrange
-//            var dataApi = DataAbstractApi.CreateApi();
-//            double width = 100;
-//            double height = 100;
+namespace WpfAppBall.Testy
+{
+    public class DataApiTests
+    {
+        [Fact]
+        public void Ball_ShouldStayWithinBoundsAfterMove()
+        {
+            double width = 100;
+            double height = 100;
+            double radius = 15;
 
-//            // Tworzymy kulę przez API
-//            var ball = dataApi.CreateBall(width, height);
+            // Tworzymy kulę na samej krawędzi, lecącą w stronę ściany
+            var ball = new BallData(1, 95, 50, 10, 0, radius);
 
-//            // Act
-//            // Wykonujemy serię ruchów
-//            for (int i = 0; i < 100; i++)
-//            {
-//                dataApi.MoveAll(width, height);
-//            }
+            // Act
+            ball.Move(width, height);
 
-//            // Assert
-//            // Sprawdzamy czy kula nadal jest na planszy (uwzględniając promień)
-//            Assert.True(ball.X >= ball.Radius && ball.X <= width - ball.Radius);
-//            Assert.True(ball.Y >= ball.Radius && ball.Y <= height - ball.Radius);
-//        }
+            // Assert - Sprawdzamy, czy odbiła się i została zepchnięta do wnętrza planszy
+            Assert.True(ball.X <= width - ball.Radius, "Kulka wyszła poza prawą granicę!");
+            Assert.True(ball.VelocityX < 0, "Prędkość po odbiciu od prawej ściany powinna być ujemna!");
+        }
 
-//        [Fact]
-//        public void Ball_ShouldChangePositionOnMove()
-//        {
-//            // Arrange
-//            var dataApi = DataAbstractApi.CreateApi();
-//            var ball = dataApi.CreateBall(500, 500);
-//            double initialX = ball.X;
-//            double initialY = ball.Y;
+        [Fact]
+        public void Ball_ShouldChangePositionOnMove()
+        {
+            // Arrange
+            var ball = new BallData(1, 100, 100, 5, -3, 15);
+            double initialX = ball.X;
+            double initialY = ball.Y;
 
-//            // Act
-//            dataApi.MoveAll(500, 500);
+            // Act
+            ball.Move(500, 500);
 
-//            // Assert
-//            // Kula powinna zmienić położenie
-//            Assert.NotEqual(initialX, ball.X);
-//            Assert.NotEqual(initialY, ball.Y);
-//        }
-//    }
-//}
+            // Assert
+            Assert.NotEqual(initialX, ball.X);
+            Assert.NotEqual(initialY, ball.Y);
+        }
+    }
+}

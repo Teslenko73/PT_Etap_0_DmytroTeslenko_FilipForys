@@ -46,7 +46,7 @@ namespace WpfAppBall.ViewModel
             get => _diameter;
             set
             {
-                if (_diameter == value) return; // NIE powiadamiaj, jeśli wartość jest taka sama
+                if (_diameter == value) return; 
                 _diameter = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanvasLeft));

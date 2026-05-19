@@ -101,15 +101,14 @@ namespace WpfAppBall.ViewModel
             Application.Current?.Dispatcher.Invoke(() =>
             {
                 Balls.Clear();
-                _ballMap.Clear();   // ← BUG FIX: czyszczenie słownika
+                _ballMap.Clear();   
             });
         }
 
-        // ── Reaktywna aktualizacja UI ────────────────────────────────────────
+        // ── 
         // Wywoływana z wątków kul przez Logikę – musi przejść przez Dispatcher
         private void OnBallsUpdated(IEnumerable<IBallDto> dtos)
         {
-            // BeginInvoke zamiast Invoke – nie blokuje wątku kulki
             Application.Current?.Dispatcher.BeginInvoke(new Action(() =>
             {
                 foreach (var dto in dtos)

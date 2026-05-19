@@ -30,7 +30,8 @@ namespace WpfAppBall.Data.DataImplementation
 
         public override IReadOnlyList<IBallData> GetAllBalls()
         {
-            lock (_lock) { return _balls.AsReadOnly(); }
+            // lock gwarantuje, że nikt nie modyfikuje listy podczas robienia kopii
+            lock (_lock) { return new List<IBallData>(_balls); }
         }
 
         public override void ClearBalls()
