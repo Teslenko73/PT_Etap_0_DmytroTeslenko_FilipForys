@@ -7,29 +7,33 @@ namespace WpfAppBall.Data.DataImplementation
     {
         private static int _idCounter = 0;
         private static readonly Random _rng = new Random();
-
         private readonly object _syncLock = new object();
         private Action<IBallData> _onMoved;
-
         private double _x, _y, _vx, _vy;
         private CancellationTokenSource _cts;
 
+        // Logger jest opcjonalny – wstrzykiwany z zewnątrz (DI)
+        private readonly DiagnosticLogger _logger;
+
         public int Id { get; }
         public double Radius { get; }
-        public double Mass { get; }        
+        public double Mass { get; }
 
         public double X { get { lock (_syncLock) return _x; } }
         public double Y { get { lock (_syncLock) return _y; } }
         public double VelocityX { get { lock (_syncLock) return _vx; } }
         public double VelocityY { get { lock (_syncLock) return _vy; } }
 
-       
-        public BallData(double boardWidth, double boardHeight, Action<IBallData> onMoved)
+        // Konstruktor produkcyjny
+        public BallData(double boardWidth, double boardHeight,
+                        Action<IBallData> onMoved,
+                        DiagnosticLogger logger = null)
         {
             Id = Interlocked.Increment(ref _idCounter);
             Radius = 15.0;
             Mass = Math.PI * Radius * Radius;
             _onMoved = onMoved;
+            _logger = logger;
 
             lock (_rng)
             {
@@ -42,7 +46,7 @@ namespace WpfAppBall.Data.DataImplementation
             }
         }
 
-        // Konstruktor test(bez wątku)
+        // Konstruktor testowy (bez wątku, bez loggera)
         internal BallData(int id, double x, double y, double vx, double vy,
                           double radius = 15.0, double mass = 0)
         {
@@ -52,13 +56,19 @@ namespace WpfAppBall.Data.DataImplementation
             Mass = mass > 0 ? mass : Math.PI * radius * radius;
         }
 
-        // ── IBallData
-        public void Move(double boardWidth, double boardHeight)
+        // ── IBallData ──────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Przesuwa kulę uwzględniając upływ czasu (real-time).
+        /// deltaTime w sekundach – zapewnia płynny ruch niezależnie od obciążenia CPU.
+        /// </summary>
+        public void Move(double boardWidth, double boardHeight, double deltaTime = 1.0)
         {
             lock (_syncLock)
             {
-                double nx = _x + _vx;
-                double ny = _y + _vy;
+                // Real-time: przesunięcie = prędkość * czas
+                double nx = _x + _vx * deltaTime;
+                double ny = _y + _vy * deltaTime;
 
                 if (nx - Radius < 0) { nx = Radius; _vx = Math.Abs(_vx); }
                 else if (nx + Radius > boardWidth) { nx = boardWidth - Radius; _vx = -Math.Abs(_vx); }
@@ -71,6 +81,10 @@ namespace WpfAppBall.Data.DataImplementation
             }
         }
 
+        // Stara sygnatura zachowana dla IBallData (deltaTime domyślny = 1.0)
+        void IBallData.Move(double boardWidth, double boardHeight)
+            => Move(boardWidth, boardHeight, 1.0);
+
         public void SetVelocity(double vx, double vy)
         {
             lock (_syncLock) { _vx = vx; _vy = vy; }
@@ -78,7 +92,8 @@ namespace WpfAppBall.Data.DataImplementation
 
         public void NotifyMoved() => _onMoved?.Invoke(this);
 
-        // watek
+        // ── Wątek ─────────────────────────────────────────────────────────────
+
         internal void StartThread(double boardWidth, double boardHeight)
         {
             _cts = new CancellationTokenSource();
@@ -86,11 +101,24 @@ namespace WpfAppBall.Data.DataImplementation
 
             var thread = new Thread(() =>
             {
+                // Real-time: zapamiętujemy czas ostatniej klatki
+                DateTime lastTime = DateTime.UtcNow;
+
                 while (!token.IsCancellationRequested)
                 {
-                    Move(boardWidth, boardHeight);
+                    DateTime now = DateTime.UtcNow;
+                    double deltaSeconds = (now - lastTime).TotalSeconds;
+                    lastTime = now;
+
+                    // Skalujemy prędkość: bazowe jednostki to px/s * 60
+                    // (mnożnik 60 żeby zachować dotychczasową szybkość wizualną)
+                    Move(boardWidth, boardHeight, deltaSeconds * 60.0);
                     NotifyMoved();
-                    Thread.Sleep(16);   // ~60 fps
+
+                    // Logowanie diagnostyczne – nie wpływa na ruch (osobny wątek bufora)
+                    _logger?.Log(Id, X, Y, VelocityX, VelocityY);
+
+                    Thread.Sleep(16); // ~60 fps – ograniczenie pętli
                 }
             })
             { IsBackground = true, Name = $"Ball-{Id}" };
@@ -102,85 +130,107 @@ namespace WpfAppBall.Data.DataImplementation
     }
 }
 
+
 //using System;
+//using System.Threading;
 
 //namespace WpfAppBall.Data.DataImplementation
 //{
-
 //    internal class BallData : IBallData
 //    {
-//        // Licznik do unikalnych ID
 //        private static int _idCounter = 0;
 //        private static readonly Random _rng = new Random();
 
 //        private readonly object _syncLock = new object();
+//        private Action<IBallData> _onMoved;
+
+//        private double _x, _y, _vx, _vy;
+//        private CancellationTokenSource _cts;
 
 //        public int Id { get; }
-//        public double X { get; private set; }
-//        public double Y { get; private set; }
-//        public double Radius { get; } = 15.0;
-//        public double VelocityX { get; private set; }
-//        public double VelocityY { get; private set; }
+//        public double Radius { get; }
+//        public double Mass { get; }        
+
+//        public double X { get { lock (_syncLock) return _x; } }
+//        public double Y { get { lock (_syncLock) return _y; } }
+//        public double VelocityX { get { lock (_syncLock) return _vx; } }
+//        public double VelocityY { get { lock (_syncLock) return _vy; } }
 
 
-//        public BallData(double boardWidth, double boardHeight)
+//        public BallData(double boardWidth, double boardHeight, Action<IBallData> onMoved)
 //        {
-//            Id = System.Threading.Interlocked.Increment(ref _idCounter);
+//            Id = Interlocked.Increment(ref _idCounter);
+//            Radius = 15.0;
+//            Mass = Math.PI * Radius * Radius;
+//            _onMoved = onMoved;
 
-
-//            X = _rng.NextDouble() * (boardWidth - 2 * Radius) + Radius;
-//            Y = _rng.NextDouble() * (boardHeight - 2 * Radius) + Radius;
-
-
-//            double speed = _rng.NextDouble() * 4.0 + 2.0;
-//            double angle = _rng.NextDouble() * 2 * Math.PI;
-//            VelocityX = speed * Math.Cos(angle);
-//            VelocityY = speed * Math.Sin(angle);
+//            lock (_rng)
+//            {
+//                _x = _rng.NextDouble() * (boardWidth - 2 * Radius) + Radius;
+//                _y = _rng.NextDouble() * (boardHeight - 2 * Radius) + Radius;
+//                double speed = _rng.NextDouble() * 3.0 + 1.5;
+//                double angle = _rng.NextDouble() * 2 * Math.PI;
+//                _vx = speed * Math.Cos(angle);
+//                _vy = speed * Math.Sin(angle);
+//            }
 //        }
 
-//        internal BallData(int id, double x, double y, double vx, double vy, double radius = 15.0)
+//        // Konstruktor test(bez wątku)
+//        internal BallData(int id, double x, double y, double vx, double vy,
+//                          double radius = 15.0, double mass = 0)
 //        {
 //            Id = id;
-//            X = x; Y = y;
-//            VelocityX = vx; VelocityY = vy;
+//            _x = x; _y = y; _vx = vx; _vy = vy;
 //            Radius = radius;
+//            Mass = mass > 0 ? mass : Math.PI * radius * radius;
 //        }
 
-
+//        // ── IBallData
 //        public void Move(double boardWidth, double boardHeight)
 //        {
 //            lock (_syncLock)
 //            {
-//                double nx = X + VelocityX;
-//                double ny = Y + VelocityY;
+//                double nx = _x + _vx;
+//                double ny = _y + _vy;
 
-//                // Odbicie od lewej / prawej
-//                if (nx - Radius < 0)
-//                {
-//                    nx = Radius;
-//                    VelocityX = Math.Abs(VelocityX);
-//                }
-//                else if (nx + Radius > boardWidth)
-//                {
-//                    nx = boardWidth - Radius;
-//                    VelocityX = -Math.Abs(VelocityX);
-//                }
+//                if (nx - Radius < 0) { nx = Radius; _vx = Math.Abs(_vx); }
+//                else if (nx + Radius > boardWidth) { nx = boardWidth - Radius; _vx = -Math.Abs(_vx); }
 
-//                // Odbicie od górnej / dolnej
-//                if (ny - Radius < 0)
-//                {
-//                    ny = Radius;
-//                    VelocityY = Math.Abs(VelocityY);
-//                }
-//                else if (ny + Radius > boardHeight)
-//                {
-//                    ny = boardHeight - Radius;
-//                    VelocityY = -Math.Abs(VelocityY);
-//                }
+//                if (ny - Radius < 0) { ny = Radius; _vy = Math.Abs(_vy); }
+//                else if (ny + Radius > boardHeight) { ny = boardHeight - Radius; _vy = -Math.Abs(_vy); }
 
-//                X = nx;
-//                Y = ny;
+//                _x = nx;
+//                _y = ny;
 //            }
 //        }
+
+//        public void SetVelocity(double vx, double vy)
+//        {
+//            lock (_syncLock) { _vx = vx; _vy = vy; }
+//        }
+
+//        public void NotifyMoved() => _onMoved?.Invoke(this);
+
+//        // watek
+//        internal void StartThread(double boardWidth, double boardHeight)
+//        {
+//            _cts = new CancellationTokenSource();
+//            var token = _cts.Token;
+
+//            var thread = new Thread(() =>
+//            {
+//                while (!token.IsCancellationRequested)
+//                {
+//                    Move(boardWidth, boardHeight);
+//                    NotifyMoved();
+//                    Thread.Sleep(16);   // ~60 fps
+//                }
+//            })
+//            { IsBackground = true, Name = $"Ball-{Id}" };
+
+//            thread.Start();
+//        }
+
+//        internal void StopThread() => _cts?.Cancel();
 //    }
 //}

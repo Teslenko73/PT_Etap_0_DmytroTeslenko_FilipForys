@@ -97,8 +97,10 @@
     <Compile Include="Data\BallData.cs" />
     <Compile Include="Data\DataAbstractApi.cs" />
     <Compile Include="Data\DataApi.cs" />
+    <Compile Include="Data\DiagnosticLogger.cs" />
     <Compile Include="Logic\LogicAbstractApi.cs" />
     <Compile Include="Logic\LogicApi.cs" />
+    <Compile Include="Testy\DataLayerTests.cs" />
     <Compile Include="Testy\LogicApiTests.cs" />
     <Compile Include="Testy\Test.cs" />
     <Compile Include="ViewModel\BallViewModel.cs" />
