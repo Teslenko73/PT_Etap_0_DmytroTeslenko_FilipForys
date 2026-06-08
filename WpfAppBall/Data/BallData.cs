@@ -70,12 +70,6 @@ namespace WpfAppBall.Data.DataImplementation
                 double nx = _x + _vx * deltaTime;
                 double ny = _y + _vy * deltaTime;
 
-                if (nx - Radius < 0) { nx = Radius; _vx = Math.Abs(_vx); }
-                else if (nx + Radius > boardWidth) { nx = boardWidth - Radius; _vx = -Math.Abs(_vx); }
-
-                if (ny - Radius < 0) { ny = Radius; _vy = Math.Abs(_vy); }
-                else if (ny + Radius > boardHeight) { ny = boardHeight - Radius; _vy = -Math.Abs(_vy); }
-
                 _x = nx;
                 _y = ny;
             }

@@ -23,13 +23,17 @@ namespace WpfAppBall.Testy
         }
 
         [Fact]
-        public void Ball_ShouldStayWithinBoundsAfterMove()
+        public void Ball_ShouldMoveLinearlyWithoutWallLogicInDataLayer()
         {
+            // Arrange
             var ball = new BallData(1, 95, 50, 10, 0, 15);
-            ball.Move(100, 100, 1.0);
 
-            Assert.True(ball.X <= 100 - ball.Radius);
-            Assert.True(ball.VelocityX < 0);
+            // Act
+            ball.Move(100, 100, 1.0); // Nowe Move tylko przesuwa: 95 + 10 = 105
+
+            // Assert
+            Assert.Equal(105.0, ball.X, precision: 5);
+            Assert.Equal(10.0, ball.VelocityX, precision: 5); // Prędkość się nie zmienia w warstwie danych
         }
 
         [Fact]

@@ -127,10 +127,31 @@ namespace WpfAppBall.Testy
             var ballB = mock.AddBall(128, 300, -2, 0); // dist=28 < 30
 
             var logic = LogicAbstractApi.CreateApi(mock);
+
+            // FIX: Inicjalizujemy wymiary planszy w logice, żeby nie wynosiły 0!
+            logic.StartSimulation(800, 600);
+
             mock.FireMoved(ballA);
 
             Assert.True(ballA.VelocityX < 0, "Kula A powinna zmienić kierunek");
             Assert.True(ballB.VelocityX > 0, "Kula B powinna zmienić kierunek");
+        }
+
+        [Fact]
+        public void Logic_ShouldBounceBallOffWall_WhenBallExceedsBounds()
+        {
+            // Test sprawdzający, czy nowa metoda w LogicApi prawidłowo obsługuje ściany
+            var mock = new MockDataApi();
+            var ball = mock.AddBall(95, 50, 10, 0); // Kula blisko prawej ściany (szerokość 100)
+
+            var logic = LogicAbstractApi.CreateApi(mock);
+            logic.StartSimulation(100, 100); // Ustawiamy stół 100x100
+
+            // Symulujemy ruch i powiadomienie
+            ball.Move(100, 100); // Współrzędna X staje się większa (np. w MockBall)
+            mock.FireMoved(ball); // Logika odbiera ruch i aplikuje ResolveWallCollisions
+
+            Assert.True(ball.VelocityX < 0, "Logika powinna zmienić zwrot prędkości po uderzeniu w ścianę");
         }
     }
 }
