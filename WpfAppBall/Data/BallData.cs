@@ -10,7 +10,8 @@ namespace WpfAppBall.Data.DataImplementation
         private readonly object _syncLock = new object();
         private Action<IBallData> _onMoved;
         private double _x, _y, _vx, _vy;
-        private CancellationTokenSource _cts;
+       // private CancellationTokenSource _cts;
+        private Timer _timer;
 
         // Logger 
         private readonly DiagnosticLogger _logger;
@@ -58,20 +59,14 @@ namespace WpfAppBall.Data.DataImplementation
 
         // ── IBallData ──────────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Przesuwa kulę uwzględniając upływ czasu (real-time).
-        /// deltaTime w sekundach – zapewnia płynny ruch niezależnie od obciążenia CPU.
-        /// </summary>
+
         public void Move(double boardWidth, double boardHeight, double deltaTime = 1.0)
         {
             lock (_syncLock)
             {
-                // Real-time: przesunięcie = prędkość * czas
-                double nx = _x + _vx * deltaTime;
-                double ny = _y + _vy * deltaTime;
 
-                _x = nx;
-                _y = ny;
+                _x += _vx * deltaTime;
+                _y += _vy * deltaTime;
             }
         }
 
@@ -90,37 +85,39 @@ namespace WpfAppBall.Data.DataImplementation
 
         internal void StartThread(double boardWidth, double boardHeight)
         {
-            _cts = new CancellationTokenSource();
-            var token = _cts.Token;
 
-            var thread = new Thread(() =>
-            {
-                // Real-time: zapamiętujemy czas ostatniej klatki
-                DateTime lastTime = DateTime.UtcNow;
+            _timer = new Timer(ExecuteStep, Tuple.Create(boardWidth, boardHeight), 0, 16);
+        }
+        private void ExecuteStep(object state)
+        {
+            var bounds = (Tuple<double, double>)state;
+            double width = bounds.Item1;
+            double height = bounds.Item2;
 
-                while (!token.IsCancellationRequested)
-                {
-                    DateTime now = DateTime.UtcNow;
-                    double deltaSeconds = (now - lastTime).TotalSeconds;
-                    lastTime = now;
+            // W prawdziwym programowaniu czasu rzeczywistego krok fizyki jest STAŁY (Fixed Step),
+            // ponieważ to systemowy Timer gwarantuje stałość interwału czasowego.
+            Move(width, height, 1.0);
+            NotifyMoved();
 
-                    // Skalujemy prędkość: bazowe jednostki to px/s * 60
-                    // (mnożnik 60 żeby zachować dotychczasową szybkość wizualną)
-                    Move(boardWidth, boardHeight, deltaSeconds * 60.0);
-                    NotifyMoved();
-
-                    // Logowanie diagnostyczne – nie wpływa na ruch (osobny wątek bufora)
-                    _logger?.Log(Id, X, Y, VelocityX, VelocityY);
-
-                    Thread.Sleep(16); // ~60 fps – ograniczenie pętli
-                }
-            })
-            { IsBackground = true, Name = $"Ball-{Id}" };
-
-            thread.Start();
+            // Logowanie diagnostyczne
+            _logger?.Log(Id, X, Y, VelocityX, VelocityY);
         }
 
-        internal void StopThread() => _cts?.Cancel();
+        public void Stop()
+        {
+            // Zatrzymanie timera
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
+        internal void StopThread()
+        {
+            // Zmieniamy interwał timera na nieskończony – to go całkowicie ucisza
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+        }
     }
 }
 
