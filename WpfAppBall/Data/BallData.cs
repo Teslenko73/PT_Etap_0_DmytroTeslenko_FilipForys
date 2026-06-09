@@ -86,7 +86,7 @@ namespace WpfAppBall.Data.DataImplementation
         internal void StartThread(double boardWidth, double boardHeight)
         {
 
-            _timer = new Timer(ExecuteStep, Tuple.Create(boardWidth, boardHeight), 0, 16);
+            _timer = new Timer(ExecuteStep, Tuple.Create(boardWidth, boardHeight), 0, 10);
         }
         private void ExecuteStep(object state)
         {
@@ -94,7 +94,6 @@ namespace WpfAppBall.Data.DataImplementation
             double width = bounds.Item1;
             double height = bounds.Item2;
 
-            // W prawdziwym programowaniu czasu rzeczywistego krok fizyki jest STAŁY (Fixed Step),
             // ponieważ to systemowy Timer gwarantuje stałość interwału czasowego.
             Move(width, height, 1.0);
             NotifyMoved();
@@ -115,7 +114,6 @@ namespace WpfAppBall.Data.DataImplementation
         }
         internal void StopThread()
         {
-            // Zmieniamy interwał timera na nieskończony – to go całkowicie ucisza
             _timer?.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
