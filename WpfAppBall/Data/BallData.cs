@@ -12,7 +12,7 @@ namespace WpfAppBall.Data.DataImplementation
         private double _x, _y, _vx, _vy;
         private CancellationTokenSource _cts;
 
-        // Logger jest opcjonalny – wstrzykiwany z zewnątrz (DI)
+        // Logger 
         private readonly DiagnosticLogger _logger;
 
         public int Id { get; }

@@ -61,7 +61,7 @@ namespace WpfAppBall.ViewModel
         // Konstruktor domyślny (produkcyjny)
         public MainViewModel() : this(LogicAbstractApi.CreateApi()) { }
 
-        // Konstruktor z DI (do testów)
+        // Konstruktor z DI 
         public MainViewModel(LogicAbstractApi logic)
         {
             _logic = logic ?? throw new ArgumentNullException(nameof(logic));

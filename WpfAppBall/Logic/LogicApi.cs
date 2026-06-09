@@ -63,7 +63,7 @@ namespace WpfAppBall.Logic.LogicImplementation
             ResolveWallCollisions(movedBall);
             ResolveCollisions(movedBall);
             //}
-            //popprawienie optymalizacji cache 
+            
 
             var dtos = _data.GetAllBalls()
                             .Select(b => (IBallDto)new BallDto(b))
@@ -96,7 +96,7 @@ namespace WpfAppBall.Logic.LogicImplementation
             }
         }
 
-        // poprawnie foreach bo nie dziala
+        
         private void ResolveCollisions(IBallData a)
         {
             var balls = _data.GetAllBalls();
