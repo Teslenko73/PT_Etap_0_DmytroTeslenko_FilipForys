@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace WpfAppBall.Data.DataImplementation
 {
@@ -10,10 +12,9 @@ namespace WpfAppBall.Data.DataImplementation
         private readonly object _syncLock = new object();
         private Action<IBallData> _onMoved;
         private double _x, _y, _vx, _vy;
-       // private CancellationTokenSource _cts;
         private Timer _timer;
+        private DateTime _lastStepTime;
 
-        // Logger 
         private readonly DiagnosticLogger _logger;
 
         public int Id { get; }
@@ -40,7 +41,8 @@ namespace WpfAppBall.Data.DataImplementation
             {
                 _x = _rng.NextDouble() * (boardWidth - 2 * Radius) + Radius;
                 _y = _rng.NextDouble() * (boardHeight - 2 * Radius) + Radius;
-                double speed = _rng.NextDouble() * 3.0 + 1.5;
+                double speed = (_rng.NextDouble() * 3.0 + 1.5) / 16.0;
+                //double speed = _rng.NextDouble() * 3.0 + 1.5;
                 double angle = _rng.NextDouble() * 2 * Math.PI;
                 _vx = speed * Math.Cos(angle);
                 _vy = speed * Math.Sin(angle);
@@ -57,20 +59,15 @@ namespace WpfAppBall.Data.DataImplementation
             Mass = mass > 0 ? mass : Math.PI * radius * radius;
         }
 
-        // ── IBallData ──────────────────────────────────────────────────────────
-
-
         public void Move(double boardWidth, double boardHeight, double deltaTime = 1.0)
         {
             lock (_syncLock)
             {
-
                 _x += _vx * deltaTime;
                 _y += _vy * deltaTime;
             }
         }
 
-        // Stara sygnatura zachowana dla IBallData (deltaTime domyślny = 1.0)
         void IBallData.Move(double boardWidth, double boardHeight)
             => Move(boardWidth, boardHeight, 1.0);
 
@@ -81,44 +78,50 @@ namespace WpfAppBall.Data.DataImplementation
 
         public void NotifyMoved() => _onMoved?.Invoke(this);
 
-        // ── Wątek ─────────────────────────────────────────────────────────────
+       
+
 
         internal void StartThread(double boardWidth, double boardHeight)
         {
+            _lastStepTime = DateTime.UtcNow; // ← zamiast Stopwatch
 
-            _timer = new Timer(ExecuteStep, Tuple.Create(boardWidth, boardHeight), 0, 10);
+            _timer = new Timer(16);
+            _timer.AutoReset = true;
+            _timer.Elapsed += (sender, e) => ExecuteStep(boardWidth, boardHeight);
+            _timer.Start();
         }
-        private void ExecuteStep(object state)
+        private void ExecuteStep(double boardWidth, double boardHeight)
         {
-            var bounds = (Tuple<double, double>)state;
-            double width = bounds.Item1;
-            double height = bounds.Item2;
+            double deltaTime;
+            lock (_syncLock)
+            {
+                DateTime now = DateTime.UtcNow;
+                deltaTime = (now - _lastStepTime).TotalMilliseconds;
+                _lastStepTime = now;
+            }
 
-            // ponieważ to systemowy Timer gwarantuje stałość interwału czasowego.
-            Move(width, height, 1.0);
+            Move(boardWidth, boardHeight, deltaTime);
             NotifyMoved();
-
-            // Logowanie diagnostyczne
             _logger?.Log(Id, X, Y, VelocityX, VelocityY);
         }
-
+      
         public void Stop()
         {
-            // Zatrzymanie timera
-            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+            _timer?.Stop();
+        }
+
+        internal void StopThread()
+        {
+            _timer?.Stop();
         }
 
         public void Dispose()
         {
+            _timer?.Stop();
             _timer?.Dispose();
-        }
-        internal void StopThread()
-        {
-            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }
-
 
 //using System;
 //using System.Threading;
