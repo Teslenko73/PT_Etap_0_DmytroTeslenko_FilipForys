@@ -1,77 +1,70 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
+using System.Timers;
 
-namespace WpfAppBall.Data
+namespace WpfAppBall.Data.DataImplementation
 {
     public class DiagnosticLogger : IDisposable
     {
-        private readonly BlockingCollection<string> _queue;
-        private readonly Thread _writerThread;
-        private readonly string _filePath;
-        private bool _disposed = false;
+        private readonly string _logFilePath;
+        private readonly object _fileLock = new object();
+        private readonly Timer _writeTimer;
+        private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+        private const int WriteIntervalMs = 1000; // Zapis co 1 sekundę (1000 ms)
 
-        public DiagnosticLogger(string filePath = "diagnostic.log")
+        public DiagnosticLogger(string fileName)
         {
-            _filePath = filePath;
-            _queue = new BlockingCollection<string>(boundedCapacity: 1000);
+            // Zapisujemy w dokumentach użytkownika w formacie ASCII
+            _logFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
 
-            _writerThread = new Thread(WriteLoop)
-            {
-                IsBackground = true,
-                Name = "DiagnosticLogger-Writer"
-            };
-            _writerThread.Start();
+            // INICJALIZACJA WYMAGANEGO TIMERA
+            _writeTimer = new Timer(WriteIntervalMs);
+            _writeTimer.Elapsed += FlushQueueToFile;
+            _writeTimer.AutoReset = true;
+            _writeTimer.Enabled = true;
         }
 
+        // Metoda wywoływana błyskawicznie przez wątki kul
         public void Log(int ballId, double x, double y, double vx, double vy)
         {
-            if (_disposed) return;
+            // Serializacja do prostego formatu tekstowego (ASCII / CSV)
+            string logEntry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] Ball ID: {ballId} | Pos: ({x:F2}, {y:F2}) | Vel: ({vx:F2}, {vy:F2}){Environment.NewLine}";
 
-            string entry = string.Format(
-                CultureInfo.InvariantCulture,
-                "{0:yyyy-MM-dd HH:mm:ss.fff};Ball={1};X={2:F3};Y={3:F3};VX={4:F3};VY={5:F3}",
-                DateTime.Now, ballId, x, y, vx, vy);
-
-            _queue.TryAdd(entry);
+            // Bezpieczne wrzucenie do bufora (rozwiązuje problem braku przepustowości dysku)
+            _logQueue.Enqueue(logEntry);
         }
 
-        private void WriteLoop()
+        // METODA WYWOŁYWANA PRZEZ TIMER CO 1 SEKUNDĘ
+        private void FlushQueueToFile(object sender, ElapsedEventArgs e)
         {
-            try
+            if (_logQueue.IsEmpty) return;
+
+            lock (_fileLock)
             {
-                using (var fs = new FileStream(_filePath, FileMode.Append, FileAccess.Write, FileShare.Read))
-                using (var writer = new StreamWriter(fs, Encoding.ASCII))
+    
+                StringBuilder sb = new StringBuilder();
+
+                while (_logQueue.TryDequeue(out string entry))
                 {
-                    writer.AutoFlush = false;
-
-                    foreach (var entry in _queue.GetConsumingEnumerable())
-                    {
-                        writer.WriteLine(entry);
-
-                        if (_queue.Count == 0)
-                            writer.Flush();
-                    }
-
-                    writer.Flush();
+                    sb.Append(entry);
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"[DiagnosticLogger] Błąd zapisu: {ex.Message}");
+
+                if (sb.Length > 0)
+                {
+                    // Zapis do pliku w kodowaniu ASCII
+                    File.AppendAllText(_logFilePath, sb.ToString(), Encoding.ASCII);
+                }
             }
         }
 
         public void Dispose()
         {
-            if (_disposed) return;
-            _disposed = true;
-            _queue.CompleteAdding();
-            _writerThread.Join(timeout: TimeSpan.FromSeconds(3));
-            _queue.Dispose();
+            _writeTimer?.Stop();
+            _writeTimer?.Dispose();
+            // Zapisz to, co zostało w kolejce przed wyłączeniem
+            FlushQueueToFile(null, null);
         }
     }
 }

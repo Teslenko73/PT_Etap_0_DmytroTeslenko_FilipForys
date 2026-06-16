@@ -10,57 +10,36 @@ namespace WpfAppBall.Data.DataImplementation
         private readonly object _lock = new object();
         private Action<IBallData> _onBallMoved;
         private double _boardWidth, _boardHeight;
-
-        // Logger żyje przez cały czas działania DataApi
         private readonly DiagnosticLogger _logger = new DiagnosticLogger("diagnostic.log");
 
         public override void Subscribe(Action<IBallData> onBallMoved)
         {
             _onBallMoved = onBallMoved;
         }
-        public override void ClearBalls()
-        {
-            List<BallData> snapshot;
-            lock (_lock)
-            {
-                snapshot = new List<BallData>(_balls);
-                _balls.Clear();
-            }
-            foreach (var b in snapshot)
-                b.StopThread(); // ← StopThread musi robić też Dispose!
 
-            BallData.ResetIdCounter(); // ← reset ID
-        }
         public override IBallData CreateBall(double boardWidth, double boardHeight)
         {
             _boardWidth = boardWidth;
             _boardHeight = boardHeight;
 
-            var ball = new BallData(boardWidth, boardHeight,
-                                    b => _onBallMoved?.Invoke(b),
-                                    _logger);   // wstrzykujemy logger
+            var ball = new BallData(boardWidth, boardHeight, b => _onBallMoved?.Invoke(b), _logger);
             lock (_lock) { _balls.Add(ball); }
-            ball.StartThread(boardWidth, boardHeight);
             return ball;
         }
 
         public override IReadOnlyList<IBallData> GetAllBalls()
         {
-            lock (_lock) { return new List<IBallData>(_balls); }
+            lock (_lock) { return new List<BallData>(_balls); }
         }
 
-        //public override void ClearBalls()
-        //{
-        //    List<BallData> snapshot;
-        //    lock (_lock)
-        //    {
-        //        snapshot = new List<BallData>(_balls);
-        //        _balls.Clear();
-        //    }
-        //    foreach (var b in snapshot) b.StopThread();
-        //}
+        public override void ClearBalls()
+        {
+            lock (_lock)
+            {
+                _balls.Clear();
+            }
+        }
 
-        // Zwolnienie loggera przy dispose DataApi
         public override void Dispose()
         {
             ClearBalls();

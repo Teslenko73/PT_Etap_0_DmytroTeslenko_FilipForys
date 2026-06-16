@@ -75,7 +75,7 @@ namespace WpfAppBall.ViewModel
         public MainViewModel(LogicAbstractApi logic)
         {
             _logic = logic ?? throw new ArgumentNullException(nameof(logic));
-            _logic.Subscribe(OnBallsUpdated);
+            _logic.BallsUpdated += (sender, dtos) => OnBallsUpdated(dtos);
 
             StartCommand = new RelayCommand(
                 execute: _ => StartSimulation(),

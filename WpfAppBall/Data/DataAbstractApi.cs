@@ -30,7 +30,7 @@ namespace WpfAppBall.Data
         double VelocityY { get; }
         void Move(double boardWidth, double boardHeight);
         void SetVelocity(double vx, double vy);
-        void NotifyMoved();
+        //void NotifyMoved();
     }
 }
 //using System;

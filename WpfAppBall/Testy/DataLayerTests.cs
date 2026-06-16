@@ -33,7 +33,7 @@ namespace WpfAppBall.Testy
 
             // Assert
             Assert.Equal(105.0, ball.X, precision: 5);
-            Assert.Equal(10.0, ball.VelocityX, precision: 5); // Prędkość się nie zmienia w warstwie danych
+            Assert.Equal(10.0, ball.VelocityX, precision: 5);
         }
 
         [Fact]
@@ -64,74 +64,81 @@ namespace WpfAppBall.Testy
         [Fact]
         public void Logger_ShouldWriteEntryToFile()
         {
-            string path = Path.GetTempFileName();
+            // Tworzymy unikalną nazwę pliku tymczasowego w Dokumentach
+            string fileName = $"test_log_{Guid.NewGuid()}.txt";
+            string fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
+
             try
             {
-                using (var logger = new DiagnosticLogger(path))
+                using (var logger = new DiagnosticLogger(fileName))
                 {
                     logger.Log(1, 100.0, 200.0, 1.5, -2.5);
-                    // Dajemy czas wątkowi piszącemu na zapis
-                    Thread.Sleep(200);
+                    // Timer zapisuje co sekundę, dajemy mu chwilę na asynchroniczny zapis
+                    Thread.Sleep(1200);
                 }
 
-                string content = File.ReadAllText(path);
-                Assert.Contains("Ball=1", content);
-                Assert.Contains("X=100.000", content);
-                Assert.Contains("Y=200.000", content);
+                string content = File.ReadAllText(fullPath);
+                // Dopasowanie do nowego formatu tekstowego w DiagnosticLogger
+                Assert.Contains("Ball ID: 1", content);
+                Assert.Contains("Pos: (100.00, 200.00)", content);
+                Assert.Contains("Vel: (1.50, -2.50)", content);
             }
             finally
             {
-                File.Delete(path);
+                if (File.Exists(fullPath))
+                    File.Delete(fullPath);
             }
         }
 
         [Fact]
         public void Logger_WhenBufferFull_ShouldNotBlockCaller()
         {
-            string path = Path.GetTempFileName();
+            string fileName = $"test_perf_{Guid.NewGuid()}.txt";
+            string fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
             try
             {
-                // boundedCapacity=1000 w loggerze – wysyłamy 2000 wpisów bardzo szybko
-                using (var logger = new DiagnosticLogger(path))
+                using (var logger = new DiagnosticLogger(fileName))
                 {
                     var sw = System.Diagnostics.Stopwatch.StartNew();
 
+                    // Masowe wrzucanie danych nie powinno blokować wątku wywołującego
                     for (int i = 0; i < 2000; i++)
                         logger.Log(i, i, i, 1, 1);
 
                     sw.Stop();
 
-                    // Wywołania TryAdd nie powinny blokować – cały cykl < 1s
                     Assert.True(sw.ElapsedMilliseconds < 1000,
                         $"Logger zablokował wątek kuli! Czas: {sw.ElapsedMilliseconds} ms");
                 }
             }
             finally
             {
-                File.Delete(path);
+                if (File.Exists(fullPath))
+                    File.Delete(fullPath);
             }
         }
 
         [Fact]
         public void Logger_EntryShouldBeAsciiEncoded()
         {
-            string path = Path.GetTempFileName();
+            string fileName = $"test_ascii_{Guid.NewGuid()}.txt";
+            string fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
             try
             {
-                using (var logger = new DiagnosticLogger(path))
+                using (var logger = new DiagnosticLogger(fileName))
                 {
                     logger.Log(42, 1.1, 2.2, 3.3, 4.4);
-                    Thread.Sleep(200);
+                    Thread.Sleep(1200);
                 }
 
-                // Odczytujemy jako bajty i sprawdzamy brak non-ASCII
-                byte[] bytes = File.ReadAllBytes(path);
+                byte[] bytes = File.ReadAllBytes(fullPath);
                 foreach (byte b in bytes)
                     Assert.True(b < 128, $"Znaleziono bajt non-ASCII: {b}");
             }
             finally
             {
-                File.Delete(path);
+                if (File.Exists(fullPath))
+                    File.Delete(fullPath);
             }
         }
     }

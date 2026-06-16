@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using WpfAppBall.Data;
+using WpfAppBall.Data.DataImplementation;
 
 namespace WpfAppBall.Logic.LogicImplementation
 {
     internal class LogicApi : LogicAbstractApi
     {
         private readonly DataAbstractApi _data;
-
-        private Action<IEnumerable<IBallDto>> _subscriber;
         private double _boardWidth, _boardHeight;
 
-        // Globalny lock do sekcji krytycznej kolizji
-        private readonly object _collisionLock = new object();
+        private readonly List<Thread> _ballThreads = new List<Thread>();
+        private volatile bool _isRunning = false;
+
+        // ─── IMPLEMENTACJA REAKTYWNEGO ZDARZENIA ───
+        public override event EventHandler<IEnumerable<IBallDto>> BallsUpdated;
+
         public LogicApi(DataAbstractApi data)
         {
             _data = data ?? throw new ArgumentNullException(nameof(data));
-            _data.Subscribe(OnBallMoved);
         }
 
         public override void CreateBalls(int count, double boardWidth, double boardHeight)
@@ -28,26 +31,36 @@ namespace WpfAppBall.Logic.LogicImplementation
             _boardWidth = boardWidth;
             _boardHeight = boardHeight;
 
-            _data.ClearBalls();
+            StopSimulation();
+
+            _isRunning = true;
+
             for (int i = 0; i < count; i++)
-                _data.CreateBall(boardWidth, boardHeight);
+            {
+                var ballData = _data.CreateBall(boardWidth, boardHeight);
+
+                Thread t = new Thread(() => BallLifecycle(ballData))
+                {
+                    IsBackground = true,
+                    Name = $"LogicBall-Thread-{ballData.Id}"
+                };
+
+                _ballThreads.Add(t);
+                t.Start();
+            }
         }
 
         public override void StartSimulation(double boardWidth, double boardHeight)
         {
             _boardWidth = boardWidth;
             _boardHeight = boardHeight;
-            // Wątki są uruchamiane per kulka przy CreateBall
         }
 
         public override void StopSimulation()
         {
+            _isRunning = false;
+            _ballThreads.Clear();
             _data.ClearBalls();
-        }
-
-        public override void Subscribe(Action<IEnumerable<IBallDto>> onUpdate)
-        {
-            _subscriber = onUpdate;
         }
 
         public override IEnumerable<IBallDto> GetBalls()
@@ -55,25 +68,44 @@ namespace WpfAppBall.Logic.LogicImplementation
             return _data.GetAllBalls().Select(b => (IBallDto)new BallDto(b)).ToList();
         }
 
-        // ─
-        private void OnBallMoved(IBallData movedBall)
+        // PĘTLA CZASU RZECZYWISTEGO DLA KAŻDEJ KULI
+        private void BallLifecycle(IBallData ball)
         {
-            //lock (_collisionLock)
-            //{
-            ResolveWallCollisions(movedBall);
-            ResolveCollisions(movedBall);
-            //}
-            
+            DateTime lastTime = DateTime.UtcNow;
 
-            var dtos = _data.GetAllBalls()
-                            .Select(b => (IBallDto)new BallDto(b))
-                            .ToList();
+            while (_isRunning)
+            {
+                DateTime now = DateTime.UtcNow;
+                double deltaTime = (now - lastTime).TotalMilliseconds / 16.0;
+                lastTime = now;
 
-            _subscriber?.Invoke(dtos);
+                if (ball is BallData concreteBall)
+                {
+                    concreteBall.Move(_boardWidth, _boardHeight, deltaTime);
+                }
+                else
+                {
+                    ball.Move(_boardWidth, _boardHeight);
+                }
+
+                ResolveWallCollisions(ball);
+                ResolveCollisions(ball);
+
+                // Przygotowanie danych dla prezentacji
+                var dtos = _data.GetAllBalls()
+                                .Select(b => (IBallDto)new BallDto(b))
+                                .ToList();
+
+                // ─── REAKTYWNE WYWOŁANIE ZDARZENIA ───
+                // Powiadamiamy subskrybentów o nowym stanie danych wejściowych
+                BallsUpdated?.Invoke(this, dtos);
+
+                Thread.Sleep(16);
+            }
         }
+
         private void ResolveWallCollisions(IBallData ball)
         {
-            // Pobieramy bezpieczne wartości prędkości i pozycji
             double vx = ball.VelocityX;
             double vy = ball.VelocityY;
             double x = ball.X;
@@ -82,11 +114,9 @@ namespace WpfAppBall.Logic.LogicImplementation
 
             bool changed = false;
 
-            // Sprawdzenie lewej/prawej ściany
             if (x - r < 0) { vx = Math.Abs(vx); changed = true; }
             else if (x + r > _boardWidth) { vx = -Math.Abs(vx); changed = true; }
 
-            // Sprawdzenie górnej/dolnej ściany
             if (y - r < 0) { vy = Math.Abs(vy); changed = true; }
             else if (y + r > _boardHeight) { vy = -Math.Abs(vy); changed = true; }
 
@@ -96,7 +126,6 @@ namespace WpfAppBall.Logic.LogicImplementation
             }
         }
 
-        
         private void ResolveCollisions(IBallData a)
         {
             var balls = _data.GetAllBalls();
@@ -106,7 +135,6 @@ namespace WpfAppBall.Logic.LogicImplementation
 
                 double dx = b.X - a.X;
                 double dy = b.Y - a.Y;
-               // double dist = Math.Sqrt(dx * Math.Sqrt(dx * dx + dy * dy)); 
                 double realDist = Math.Sqrt(dx * dx + dy * dy);
                 double minDist = a.Radius + b.Radius;
 
@@ -119,30 +147,23 @@ namespace WpfAppBall.Logic.LogicImplementation
                     {
                         lock (secondLock)
                         {
-
-                            // inny wątek mógł już obsłużyć to zderzenie i zmienić pozycje kulek.
-                            // Dlatego wewnątrz sekcji krytycznej przeliczamy odległość ponownie.
                             dx = b.X - a.X;
                             dy = b.Y - a.Y;
                             realDist = Math.Sqrt(dx * dx + dy * dy);
 
                             if (realDist < minDist && realDist > 1e-9)
                             {
-                                // Wektor zderzenia
                                 double nx = dx / realDist;
                                 double ny = dy / realDist;
 
-                                // Składowe prędkości
                                 double aVn = a.VelocityX * nx + a.VelocityY * ny;
                                 double bVn = b.VelocityX * nx + b.VelocityY * ny;
 
-                                // Kule muszą się zbliżać do siebie
                                 if (aVn - bVn < 0) continue;
 
                                 double ma = a.Mass, mb = b.Mass;
                                 double sum = ma + mb;
 
-                                // Wzory na zderzenie sprężyste
                                 double newAVn = (aVn * (ma - mb) + 2 * mb * bVn) / sum;
                                 double newBVn = (bVn * (mb - ma) + 2 * ma * aVn) / sum;
 
@@ -153,13 +174,6 @@ namespace WpfAppBall.Logic.LogicImplementation
                                 b.SetVelocity(b.VelocityX + deltaBVn * nx, b.VelocityY + deltaBVn * ny);
                             }
                         }
-
-                        // Separacja (zapobiega "przyklejaniu się")
-                        //double overlap = (minDist - dist) / 2.0;
-                        //a.SetVelocity(a.VelocityX - overlap * nx,
-                        //              a.VelocityY - overlap * ny);
-                        // separacja przez przesunięcie – tylko powiadomienia, bez bezpośredniej zmiany X/Y
-                        // (X/Y zmienia się przy kolejnym Move – wystarczy dla płynności)
                     }
                 }
             }
