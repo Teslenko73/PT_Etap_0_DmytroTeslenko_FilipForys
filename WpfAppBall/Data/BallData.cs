@@ -48,7 +48,10 @@ namespace WpfAppBall.Data.DataImplementation
                 _vy = speed * Math.Sin(angle);
             }
         }
-
+        internal static void ResetIdCounter()
+        {
+            Interlocked.Exchange(ref _idCounter, 0);
+        }
         // Konstruktor testowy (bez wątku, bez loggera)
         internal BallData(int id, double x, double y, double vx, double vy,
                           double radius = 15.0, double mass = 0)
@@ -113,6 +116,8 @@ namespace WpfAppBall.Data.DataImplementation
         internal void StopThread()
         {
             _timer?.Stop();
+            _timer?.Dispose();
+            _timer = null;
         }
 
         public void Dispose()

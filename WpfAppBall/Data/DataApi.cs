@@ -18,7 +18,19 @@ namespace WpfAppBall.Data.DataImplementation
         {
             _onBallMoved = onBallMoved;
         }
+        public override void ClearBalls()
+        {
+            List<BallData> snapshot;
+            lock (_lock)
+            {
+                snapshot = new List<BallData>(_balls);
+                _balls.Clear();
+            }
+            foreach (var b in snapshot)
+                b.StopThread(); // ← StopThread musi robić też Dispose!
 
+            BallData.ResetIdCounter(); // ← reset ID
+        }
         public override IBallData CreateBall(double boardWidth, double boardHeight)
         {
             _boardWidth = boardWidth;
@@ -37,16 +49,16 @@ namespace WpfAppBall.Data.DataImplementation
             lock (_lock) { return new List<IBallData>(_balls); }
         }
 
-        public override void ClearBalls()
-        {
-            List<BallData> snapshot;
-            lock (_lock)
-            {
-                snapshot = new List<BallData>(_balls);
-                _balls.Clear();
-            }
-            foreach (var b in snapshot) b.StopThread();
-        }
+        //public override void ClearBalls()
+        //{
+        //    List<BallData> snapshot;
+        //    lock (_lock)
+        //    {
+        //        snapshot = new List<BallData>(_balls);
+        //        _balls.Clear();
+        //    }
+        //    foreach (var b in snapshot) b.StopThread();
+        //}
 
         // Zwolnienie loggera przy dispose DataApi
         public override void Dispose()

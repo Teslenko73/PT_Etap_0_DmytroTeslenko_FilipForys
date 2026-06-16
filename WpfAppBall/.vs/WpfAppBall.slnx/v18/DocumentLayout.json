@@ -3,19 +3,27 @@
   "WorkspaceRootPath": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\data\\dataapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:data\\dataapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\data\\balldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:data\\balldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\logic\\logicapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\logic\\logicapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:logic\\logicapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|c:\\users\\wdi\\documents\\pt_etap_0_dmytroteslenko_filipforys\\wpfappball\\logic\\logicabstractapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\logic\\logicabstractapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{588C3935-7C76-4D2A-A947-FFD1A2E5B4E7}|WpfAppBall.csproj|solutionrelative:logic\\logicabstractapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,23 +34,48 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DataApi.cs",
+              "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Data\\DataApi.cs",
+              "RelativeDocumentMoniker": "Data\\DataApi.cs",
+              "ToolTip": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Data\\DataApi.cs",
+              "RelativeToolTip": "Data\\DataApi.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwDwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T08:53:26.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\ViewModel\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModel\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\ViewModel\\MainViewModel.cs",
+              "RelativeToolTip": "ViewModel\\MainViewModel.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAkwGIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T08:51:23.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-06-15T20:36:29.925Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-15T20:36:29.925Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "LogicApi.cs",
               "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Logic\\LogicApi.cs",
               "RelativeDocumentMoniker": "Logic\\LogicApi.cs",
@@ -50,12 +83,11 @@
               "RelativeToolTip": "Logic\\LogicApi.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAQwAwAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-15T20:16:13.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-15T20:16:13.107Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "LogicAbstractApi.cs",
               "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Logic\\LogicAbstractApi.cs",
               "RelativeDocumentMoniker": "Logic\\LogicAbstractApi.cs",
@@ -63,18 +95,17 @@
               "RelativeToolTip": "Logic\\LogicAbstractApi.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-15T20:16:11.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-15T20:16:11.466Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BallData.cs",
               "DocumentMoniker": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Data\\BallData.cs",
               "RelativeDocumentMoniker": "Data\\BallData.cs",
               "ToolTip": "C:\\Users\\wdi\\Documents\\PT_Etap_0_DmytroTeslenko_FilipForys\\WpfAppBall\\Data\\BallData.cs",
               "RelativeToolTip": "Data\\BallData.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAowGoAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAqwHgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-15T19:55:35.657Z",
               "EditorCaption": ""

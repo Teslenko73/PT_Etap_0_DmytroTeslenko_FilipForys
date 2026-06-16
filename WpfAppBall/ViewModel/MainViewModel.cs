@@ -60,7 +60,17 @@ namespace WpfAppBall.ViewModel
 
         // Konstruktor domyślny (produkcyjny)
         public MainViewModel() : this(LogicAbstractApi.CreateApi()) { }
-
+        private void StartSimulation()
+        {
+            // Wyczyść UI przed startem
+            Application.Current?.Dispatcher.Invoke(() =>
+            {
+                Balls.Clear();
+                _ballMap.Clear();
+            });
+            _logic.CreateBalls(BallCount, BoardWidth, BoardHeight);
+            IsRunning = true;
+        }
         // Konstruktor z DI 
         public MainViewModel(LogicAbstractApi logic)
         {
@@ -86,12 +96,7 @@ namespace WpfAppBall.ViewModel
                 _logic.StartSimulation(BoardWidth, BoardHeight);
         }
 
-        private void StartSimulation()
-        {
-            // CreateBalls uruchamia wątki wewnętrznie
-            _logic.CreateBalls(BallCount, BoardWidth, BoardHeight);
-            IsRunning = true;
-        }
+  
 
         private void StopSimulation()
         {
